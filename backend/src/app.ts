@@ -39,15 +39,12 @@ app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 // STATIC UPLOADS
 // ==========================================
 
-const uploadDirectory = path.resolve(
-  process.cwd(),
-  "uploads"
-);
+// Harus sama dengan direktori yang digunakan multer.
+const uploadDirectory = process.env.VERCEL
+  ? path.join("/tmp", "stockco-uploads")
+  : path.resolve(process.cwd(), "uploads");
 
-app.use(
-  "/uploads",
-  express.static(uploadDirectory)
-);
+app.use("/uploads", express.static(uploadDirectory));
 
 // ==========================================
 // ROOT
@@ -164,4 +161,3 @@ app.use(
 );
 
 export default app;
-

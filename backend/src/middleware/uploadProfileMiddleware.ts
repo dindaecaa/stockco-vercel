@@ -1,20 +1,25 @@
 
 import multer from "multer";
-import path from "path";
-import fs from "fs";
+import path from "node:path";
+import fs from "node:fs";
 
-const uploadDirectory = path.resolve(
-  process.cwd(),
-  "uploads",
+// Vercel hanya menyediakan direktori /tmp yang dapat ditulisi.
+// Saat lokal, gunakan folder uploads di project backend.
+const uploadRootDirectory = process.env.VERCEL
+  ? path.join("/tmp", "stockco-uploads")
+  : path.resolve(process.cwd(), "uploads");
+
+export const profileUploadDirectory = path.join(
+  uploadRootDirectory,
   "profiles"
 );
 
-// Pastikan folder penyimpanan tersedia.
-fs.mkdirSync(uploadDirectory, { recursive: true });
+// Pastikan direktori tersedia sebelum multer menyimpan file.
+fs.mkdirSync(profileUploadDirectory, { recursive: true });
 
 const storage = multer.diskStorage({
   destination: (_req, _file, callback) => {
-    callback(null, uploadDirectory);
+    callback(null, profileUploadDirectory);
   },
 
   filename: (_req, file, callback) => {
