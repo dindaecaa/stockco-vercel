@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+frontend/.next/
+frontend/out/
+
+# Logs
+npm-debug.log*
+*.log
+
+# System files
+.DS_Store
+
+# Flutter / Dart
+pbl_mobile/.dart_tool/
+pbl_mobile/.flutter-plugins
+pbl_mobile/.flutter-plugins-dependencies
+pbl_mobile/.packages
+pbl_mobile/build/
+pbl_mobile/.pub-cache/
+pbl_mobile/coverage/
+
+uploads/
