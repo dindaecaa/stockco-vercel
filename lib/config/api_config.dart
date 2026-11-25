@@ -11,16 +11,20 @@ class ApiConfig {
         return 'http://localhost:3001';
       }
 
-      // Jika sudah di-deploy ke Vercel.
-      return Uri.base.origin;
+      // Jika sudah di-deploy, gunakan backend Vercel.
+      return 'https://stockco-backend.vercel.app';
     }
 
     // Jika dijalankan melalui Android Emulator.
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:3001';
+      return kReleaseMode
+          ? 'https://stockco-backend.vercel.app'
+          : 'http://10.0.2.2:3001';
     }
 
-    return 'http://localhost:3001';
+    // Platform lainnya.
+    return kReleaseMode
+        ? 'https://stockco-backend.vercel.app'
+        : 'http://localhost:3001';
   }
 }
-
